@@ -2,7 +2,8 @@
 
 [My Notes](notes.md)
 
-This is a site for content creators to find the music they are looking for and collaborate with otherwise unknown content creators. Ex: "I need some original music for my youtube video". go to the site and request what you want. there will then be a sub competition to fulfil the request.
+Elevator pitch:
+This is a site for people to put in rfps to find the music they are looking for and collaborate with otherwise unknown content creators. Ex: "I need some original music for my youtube video". go to the site and request what you want. there will then be a sub competition to fulfil the request.
 
 
 > [!NOTE]

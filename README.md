@@ -1,4 +1,4 @@
-# Give me Music!
+# Bounty Hunter
 
 [My Notes](notes.md)
 

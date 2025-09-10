@@ -54,12 +54,19 @@ sequenceDiagram
 
 I am going to use the required technologies in the following ways.
 
-- **HTML** - Description here
-- **CSS** - Description here
-- **React** - Description here
-- **Service** - Description here
-- **DB/Login** - Description here
-- **WebSocket** - Description here
+- **HTML** - Uses correct HTML structure for application. Five HTML pages. Request songs page, search for bounties page, login page, contest page, profile page. Hyperlinks to choice artifact.
+- **CSS** - Application styling that looks good on different screen sizes, uses good whitespace, color choice and contrast.
+- **React** - Implement the login system and input forms using React components (e.g., user authentication, contest entry, song request forms). Display dynamic choices such as contest submissions, selectable winner, and bounty filters with React state management.
+- **Service** - Backend service with endpoints for:
+⋅⋅⋅⋅* Create a new song request (RFP)
+⋅⋅⋅⋅* List/search existing bounties
+⋅⋅⋅⋅* Submit a track to a bounty’s contest
+⋅⋅⋅⋅* View entries for a bounty
+⋅⋅⋅⋅* Handle authentication
+⋅⋅⋅⋅* Fetch user profile, recent submissions, win history
+
+- **DB/Login** - Store users (authentication, roles), bounty requests, contest submissions, selected winners, profile info.
+- **WebSocket** - Enable real-time notifications (e.g., new bounty posted, contest updates, winner announcements). Use WebSocket for live collaboration features—artists and requesters can chat, provide feedback, and track contest status as it happens.
 
 
 

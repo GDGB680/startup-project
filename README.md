@@ -5,6 +5,8 @@
 This is a site for people to put in rfps to find the music they are looking for and collaborate with otherwise unknown content creators. Ex: "I need some original music for my youtube video". go to the site and request what you want. there will then be a sub competition to fulfil the request.
 
 
+
+
 > [!NOTE]
 >  This is a template for your startup application. You must modify this `README.md` file for each phase of your development. You only need to fill in the section for each deliverable when that deliverable is submitted in Canvas. Without completing the section for a deliverable, the TA will not know what to look for when grading your submission. Feel free to add additional information to each deliverable description, but make sure you at least have the list of rubric items and a description of what you did for each item.
 
@@ -58,6 +60,14 @@ I am going to use the required technologies in the following ways.
 - **Service** - Description here
 - **DB/Login** - Description here
 - **WebSocket** - Description here
+
+
+
+
+
+
+
+
 
 ## 🚀 AWS deliverable
 

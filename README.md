@@ -47,42 +47,28 @@ sequenceDiagram
 ### Key features
 
 * Request & Contest Features
-  
-⋅⋅⋅Music Request Form: Filmmakers and YouTubers post detailed requests specifying their needs (genre, mood, length, intended use).
-  
-⋅⋅⋅Bounty/Contest Creation: Each request becomes a contest (“bounty”) that composers can enter by submitting original tracks.
-  
-⋅⋅⋅Submission Gallery: Creators view and compare all contest entries, with options to preview, filter, and sort submissions.
+  * Music Request Form: Filmmakers and YouTubers post detailed requests specifying their needs (genre, mood, length, intended use).
+  * Bounty/Contest Creation: Each request becomes a contest (“bounty”) that composers can enter by submitting original tracks.
+  * Submission Gallery: Creators view and compare all contest entries, with options to preview, filter, and sort submissions.
 
 * Collaboration & Engagement
-  
-⋅⋅⋅Messaging & Feedback: Built-in chat or comment tools allow real-time discussion, feedback, and iteration between requester and musicians.
-  
-⋅⋅⋅Contest Voting/Judging: Requesters (and optionally the community) can vote or rate submissions, increasing engagement and encouraging creators.
-  
-⋅⋅⋅Profile Pages: Every user—requester or musician—has a profile with contest history, wins, and sample works.
+  * Messaging & Feedback: Built-in chat or comment tools allow real-time discussion, feedback, and iteration between requester and musicians.
+  * Contest Voting/Judging: Requesters (and optionally the community) can vote or rate submissions, increasing engagement and encouraging creators.
+  * Profile Pages: Every user—requester or musician—has a profile with contest history, wins, and sample works.
 
 * Platform Tools
-  
-⋅⋅⋅Authentication/Login: Secure login system for user data, submissions, and rewards tracking.
-  
-⋅⋅⋅Notifications: Real-time alerts (via WebSocket) about contest updates, new messages, and bounty results to keep users engaged.
-  
-⋅⋅⋅Search & Discovery: Browse open bounties, filter by genre or popularity, and search for composers or recent winners.
+  * Authentication/Login: Secure login system for user data, submissions, and rewards tracking.
+  * Notifications: Real-time alerts (via WebSocket) about contest updates, new messages, and bounty results to keep users engaged.
+  * Search & Discovery: Browse open bounties, filter by genre or popularity, and search for composers or recent winners.
 
 * Licensing, Payments & Security
-  
-⋅⋅⋅Transparent Licensing: Simple, clear agreement on song usage rights once a track is selected, protecting both content creator and musician.
-  
-⋅⋅⋅Reward/Payment System: Direct payment for contest winners (using platform credits, paypal, etc.), with administration for taxes and royalties if needed.
-  
-⋅⋅⋅Data Security: Secure storage and transfer of tracks, user data, and payments.
+  * Transparent Licensing: Simple, clear agreement on song usage rights once a track is selected, protecting both content creator and musician.
+  * Reward/Payment System: Direct payment for contest winners (using platform credits, paypal, etc.), with administration for taxes and royalties if needed.
+  * Data Security: Secure storage and transfer of tracks, user data, and payments.
 
 * Community & Promotion
-  
-⋅⋅⋅Public Playlists: Showcase winning tracks and featured contests to promote creators and inspire new requests.
-  
-⋅⋅⋅Leaderboard/Statistics: Track top contributors, contest success rates, and trending musical styles to motivate users.
+  * Public Playlists: Showcase winning tracks and featured contests to promote creators and inspire new requests.
+  * Leaderboard/Statistics: Track top contributors, contest success rates, and trending musical styles to motivate users.
 
 
 

@@ -33,16 +33,14 @@ There are many music libraries and sites out there to find music for your video 
 
 ### Design
 
-![Design image](placeholder.png)
+![IMG_3351](https://github.com/user-attachments/assets/247e1f49-cc66-4574-9d62-2ef3f48edbc2)
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+![IMG_3352](https://github.com/user-attachments/assets/3f072034-4fdd-44a7-8b3d-2b8d94f3f5b3)
+![IMG_3350](https://github.com/user-attachments/assets/08a2a44d-8703-426b-89ea-4cf3e96535d6)
 
-```mermaid
-sequenceDiagram
-    actor You
-    actor Website
-    You->>Website: Replace this with your design
-```
+Here is a sequence diagram
+
+![IMG_3349](https://github.com/user-attachments/assets/47cc0487-9821-4631-ae75-9911b011f61a)
 
 ### Key features
 

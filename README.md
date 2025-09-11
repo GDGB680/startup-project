@@ -55,29 +55,33 @@ sequenceDiagram
 ⋅⋅⋅Submission Gallery: Creators view and compare all contest entries, with options to preview, filter, and sort submissions.
 
 * Collaboration & Engagement
+  
 ⋅⋅⋅Messaging & Feedback: Built-in chat or comment tools allow real-time discussion, feedback, and iteration between requester and musicians.
-
+  
 ⋅⋅⋅Contest Voting/Judging: Requesters (and optionally the community) can vote or rate submissions, increasing engagement and encouraging creators.
-
+  
 ⋅⋅⋅Profile Pages: Every user—requester or musician—has a profile with contest history, wins, and sample works.
 
 * Platform Tools
+  
 ⋅⋅⋅Authentication/Login: Secure login system for user data, submissions, and rewards tracking.
-
+  
 ⋅⋅⋅Notifications: Real-time alerts (via WebSocket) about contest updates, new messages, and bounty results to keep users engaged.
-
+  
 ⋅⋅⋅Search & Discovery: Browse open bounties, filter by genre or popularity, and search for composers or recent winners.
 
 * Licensing, Payments & Security
+  
 ⋅⋅⋅Transparent Licensing: Simple, clear agreement on song usage rights once a track is selected, protecting both content creator and musician.
-
+  
 ⋅⋅⋅Reward/Payment System: Direct payment for contest winners (using platform credits, paypal, etc.), with administration for taxes and royalties if needed.
-
+  
 ⋅⋅⋅Data Security: Secure storage and transfer of tracks, user data, and payments.
 
 * Community & Promotion
+  
 ⋅⋅⋅Public Playlists: Showcase winning tracks and featured contests to promote creators and inspire new requests.
-
+  
 ⋅⋅⋅Leaderboard/Statistics: Track top contributors, contest success rates, and trending musical styles to motivate users.
 
 
@@ -90,12 +94,12 @@ I am going to use the required technologies in the following ways.
 - **CSS** - Application styling that looks good on different screen sizes, uses good whitespace, color choice and contrast.
 - **React** - Implement the login system and input forms using React components (e.g., user authentication, contest entry, song request forms). Display dynamic choices such as contest submissions, selectable winner, and bounty filters with React state management.
 - **Service** - Backend service with endpoints for:
-⋅⋅⋅⋅* Create a new song request (RFP)
-⋅⋅⋅⋅* List/search existing bounties
-⋅⋅⋅⋅* Submit a track to a bounty’s contest
-⋅⋅⋅⋅* View entries for a bounty
-⋅⋅⋅⋅* Handle authentication
-⋅⋅⋅⋅* Fetch user profile, recent submissions, win history
+* Create a new song request (RFP)
+* List/search existing bounties
+* Submit a track to a bounty’s contest
+* View entries for a bounty
+* Handle authentication
+* Fetch user profile, recent submissions, win history
 
 - **DB/Login** - Store users (authentication, roles), bounty requests, contest submissions, selected winners, profile info.
 - **WebSocket** - Enable real-time notifications (e.g., new bounty posted, contest updates, winner announcements). Use WebSocket for live collaboration features—artists and requesters can chat, provide feedback, and track contest status as it happens.

@@ -47,10 +47,11 @@ sequenceDiagram
 ### Key features
 
 * Request & Contest Features
+  
 ⋅⋅⋅Music Request Form: Filmmakers and YouTubers post detailed requests specifying their needs (genre, mood, length, intended use).
-
+  
 ⋅⋅⋅Bounty/Contest Creation: Each request becomes a contest (“bounty”) that composers can enter by submitting original tracks.
-
+  
 ⋅⋅⋅Submission Gallery: Creators view and compare all contest entries, with options to preview, filter, and sort submissions.
 
 * Collaboration & Engagement

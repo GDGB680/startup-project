@@ -1,0 +1,49 @@
+<main>
+  <header>
+    <h1>Bounty Hunter</h1>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Post RFQ</a>
+      <a href="#">Bounties</a>
+      <a href="#">Submit</a>
+      <a href="#">Profile</a>
+    </nav>
+  </header>
+  <section class="intro">
+    <h2>Find Your Soundtrack</h2>
+    <p>Request custom music, run contests, and discover hidden talent.</p>
+  </section>
+  
+  <form id="rfqForm">
+ 
+
+  <label for="genres">Genres:</label>
+  <select id="genres" name="genres" multiple required>
+    <option value="Techno">Techno</option>
+    <option value="Pop">Pop</option>
+    <option value="Lo-fi">Lo-fi</option>
+    <option value="Chill">Chill</option>
+    <option value="Orchestra">Orchestra</option>
+    <option value="Cinematic">Cinematic</option>
+  </select>
+  <small>(Hold Ctrl/Cmd to select multiple)</small><br><br>
+
+  <label for="bounty">Prize ($):</label>
+  <input type="number" id="bounty" name="bounty" min="1" required><br><br>
+
+  <label for="time">Duration (e.g. 60 sec):</label>
+  <input type="text" id="time" name="time" required><br><br>
+
+  <label for="deadline">Deadline:</label>
+  <input type="date" id="deadline" name="deadline" required><br><br>
+    
+     <label for="details">Details:</label>
+  <input type="text" id="details" name="details" required><br><br>
+
+  <button type="submit">Post Bounty</button>
+</form>
+
+
+    </div>
+  </section>
+</main>

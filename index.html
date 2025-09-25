@@ -1,124 +1,43 @@
-<main>
-  <header>
-    <h1>Bounty Hunter</h1>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bounty Hunter - Home</title>
+</head>
+<!-- Login placeholder - showing user name display -->
+<div class="user-section">
+    <span id="username-display">Guest User</span>
+    <!-- TODO: Replace with actual logged-in username from authentication service -->
+</div>
+<body>
+    <header>
+        <h1>Bounty Hunter</h1>
+    </header>
     <nav>
-      <a href="index.html">Home</a>
-      <a href="PostRFQ.html">Post RFQ</a>
-      <a href="Bounties.html">Bounties</a>
-      <a href="Submit.html">Submit</a>
-      <a href="Profile.html">Profile</a>
+        <a href="index.html">Home</a>
+        <a href="PostRFQ.html">Post RFQ</a>
+        <a href="Bounties.html">Bounties</a>
+        <a href="Submit.html">Submit</a>
+        <a href="Profile.html">Profile</a>
+        <!-- TODO: Add login/logout functionality -->
+        <span id="username-display">Guest</span>
     </nav>
-  </header>
-  <section class="intro">
-    <h2>Find Your Soundtrack</h2>
-    <p>Request custom music, run contests, and discover hidden talent.</p>
-  </section>
+    <main>
+        <section class="intro">
+            <h2>Find Your Soundtrack</h2>
+            <p>Request custom music, run contests, and discover hidden talent.</p>
+        </section>
   
   
-<!--   <section class="bounty-board">
-    <h2 class="heading">Open Bounties</h2>
-    <div class="bounty-cards">
-      
-      
-      <div class="bounty-card">
-        <h3>Inspirational Techno Pop (30 sec)</h3>
-        <p>For: YouTube ad / Budget: $30<br>Deadline: 3d</p>
-        <button>View Details</button>
-      </div>
-      
-      
-      <div class="bounty-card">
-        <h3>Lo-fi Chill Loop</h3>
-        <p>For: Vlog background / Budget: $15<br>Deadline: 2d</p>
-        <button>View Details</button>
-      </div>
-      
-      
-      <div class="bounty-card">
-        <h3>Epic Orchestra - 45s</h3>
-        <p>For: Short film trailer / Budget: $50<br>Deadline: 7d</p>
-        <button>View Details</button>
-      </div> -->
-<!--       
-      <h2 class="heading">Open Bounties</h2>
-
-      <div class="card-container" id="cardContainer"></div>
-  
-      
-     <script>
-       const data = [
-          { genre: 'Techno, Pop', bounty: '$30' ,time: "30sec" ,deadline: '3 days'},
-         
-          // { title: 'Lo-fi Chill', desc: 'For: Vlog bg. Budget: $15. Deadline: 2d.' },
-          // { title: 'Epic Orchestra', desc: 'For: Short trailer. Budget: $50. Deadline: 7d.' }
-      ];
-       
-       
-        const container = document.getElementById('cardContainer');
-       
-        data.forEach(bounty => {
-        const card = document.createElement('div');
-        card.className = 'bounty-card';
-        card.innerHTML = `<h3>${bounty.genre}</h3><p>${bounty.bounty}</p><p>${bounty.time}</p><p>${bounty.deadline}</p>`;
-        card.onclick = () => alert('Show more details for ' + bounty.title);
-        container.appendChild(card);
-        });
-    </script> -->
-      
-  
-  <section class="bounty-board">
-  <h2 class="heading">Open Bounties</h2>
-  <div class="card-container" id="cardContainer"></div>
-</section>
-
-<script>
-// Preset genre tags:
-const genreOptions = ['Techno', 'Pop', 'Lo-fi', 'Chill', 'Orchestra', 'Cinematic'];
-
-// Example bounty data
-const data = [
-  { genres: ['Techno', 'Pop'], bounty: 30, time: "30sec", deadline: '2025-09-29', title: "Inspirational Techno Pop" },
-  { genres: ['Lo-fi', 'Chill'], bounty: 15, time: "1min", deadline: '2025-09-28', title: "Lo-fi Chill Loop" },
-  { genres: ['Orchestra', 'Cinematic'], bounty: 50, time: "45sec", deadline: '2025-10-02', title: "Epic Orchestra" }
-];
-
-// Helper to compute days left
-function daysUntil(dateString) {
-  const now = new Date();
-  const target = new Date(dateString);
-  const diff = target - now;
-  if (diff < 0) return "expired";
-  const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
-  return `in ${days} day${days !== 1 ? "s" : ""}`;
-}
-
-const container = document.getElementById('cardContainer');
-data.forEach(bounty => {
-  const card = document.createElement('div');
-  card.className = 'bounty-card';
-
-  // Genre tags
-  const tags = bounty.genres.map(genre =>
-    `<span class="genre-tag">${genre}</span>`
-  ).join(' ');
-
-  card.innerHTML = `
-    <div>${tags}</div>
-    
-    <h3>${bounty.title}</h3>
-    
-    <p><strong>Prize:</strong> $${bounty.bounty}</p>
-    <p><strong>Duration:</strong> ${bounty.time}</p>
-    <p><strong>Deadline:</strong> ${daysUntil(bounty.deadline)}</p>
-  `;
-  card.onclick = () => alert('Show more details for ' + bounty.title);
-  container.appendChild(card);
-});
-</script>
-
-
-  
-  
-    </div>
-  </section>
-</main>
+        <section class="bounty-board">
+            <h2 class="heading">Open Bounties</h2>
+              <div class="card-container" id="cardContainer"></div>
+        </section>
+    </main>
+    <footer>
+        <!-- Footer content -->
+    </footer>
+</body>
+</html>

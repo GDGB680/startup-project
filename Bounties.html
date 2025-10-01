@@ -7,6 +7,9 @@
     <title>Bounty Hunter - Bounties</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
+
+
 <!-- Login placeholder - showing user name display -->
 <div class="user-section">
     <span id="username-display">Guest User</span>
@@ -17,6 +20,9 @@
 
 
 <body>
+    <div class="user-section">
+        <span id="username-display">Guest User</span>
+    </div>
     <header>
       <h1>Bounty Hunter</h1>
       <nav>
@@ -25,48 +31,53 @@
         <a href="Bounties.html">Bounties</a>
         <a href="Submit.html">Submit</a>
         <a href="Profile.html">Profile</a>
-
         </nav>
     </header>
+
     <main>
-        <section class="bounty-category">
-            <h2>Bounties You've Posted:</h2>
-            <div class="bounty-list">
-            <!-- Example card. Replace with dynamic entries as needed. -->
-            <!-- <div class="bounty-card">
-                <h3>Epic Orchestra</h3>
-                <p>Budget: $50 | Deadline: 7d</p>
-                <button>View Details</button>
-            </div> -->
-            </div>
-        </section>
 
-        <section class="bounty-category">
-            <h2>Bounties You've Submitted To:</h2>
-            <div class="bounty-list">
-            <!-- <div class="bounty-card">
-                <h3>Lo-fi Chill Loop</h3>
-                <p>Status: Pending | Submitted: Sep 23</p>
-                <button>View Details</button>
-            </div> -->
-            </div>
-        </section>
 
-        <section class="bounty-category">
-            <h2>Bounties You're Following:</h2>
-            <div class="bounty-list">
-            <!-- <div class="bounty-card">
-                <h3>Inspirational Techno Pop</h3>
-                <p>Budget: $30 | Deadline: 3d</p>
-                <button>View Details</button>
-            </div> -->
-            </div>
-        </section>
 
         <section class="bounty-board">
             <h2 class="heading">Open Bounties</h2>
               <div class="card-container" id="cardContainer"></div>
         </section>
+
+
+        <section class="card-section">
+            <h2>Bounties You've Posted</h2>
+            <div class="card-list">
+                <!-- <div class="card">
+                    <h3>Epic Orchestra</h3>
+                    <p>Budget: $50 | Deadline: 7d</p>
+                    <button class="card-btn">View Details</button>
+                </div> -->
+            </div>
+        </section>
+
+        <section class="card-section">
+            <h2>Bounties You've Submitted To</h2>
+            <div class="card-list">
+                <!-- <div class="card">
+                    <h3>Lo-fi Chill Loop</h3>
+                    <span class="tag status-pending">Pending</span>
+                    <p>Submitted: Sep 23</p>
+                    <button class="card-btn">View Details</button>
+                </div> -->
+            </div>
+        </section>
+
+        <section class="card-section">
+            <h2>Bounties You're Following</h2>
+            <div class="card-list">
+                <!-- <div class="card">
+                    <h3>Inspirational Techno Pop</h3>
+                    <p>Budget: $30 | Deadline: 3d</p>
+                    <button class="card-btn">View Details</button>
+                </div> -->
+            </div>
+        </section>
+
 
 
     </main>

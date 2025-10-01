@@ -1,41 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bounty Hunter - Home</title>
 </head>
+
 <!-- Login placeholder - showing user name display -->
 <div class="user-section">
     <span id="username-display">Guest User</span>
     <!-- TODO: Replace with actual logged-in username from authentication service -->
 </div>
+
 <body>
     <header>
         <h1>Bounty Hunter</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="PostRFQ.html">Post RFQ</a>
+            <a href="Bounties.html">Bounties</a>
+            <a href="Submit.html">Submit</a>
+            <a href="Profile.html">Profile</a>
+            <!-- TODO: Add login/logout functionality -->
+            <span id="username-display">Guest</span>
+        </nav>
     </header>
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="PostRFQ.html">Post RFQ</a>
-        <a href="Bounties.html">Bounties</a>
-        <a href="Submit.html">Submit</a>
-        <a href="Profile.html">Profile</a>
-        <!-- TODO: Add login/logout functionality -->
-        <span id="username-display">Guest</span>
-    </nav>
     <main>
         <section class="intro">
             <h2>Find Your Soundtrack</h2>
             <p>Request custom music, run contests, and discover hidden talent.</p>
         </section>
-  
-  
         <section class="bounty-board">
             <h2 class="heading">Open Bounties</h2>
               <div class="card-container" id="cardContainer"></div>
         </section>
     </main>
+
     <footer>
         <a href="https://github.com/GDGB680/startup-project/tree/main#" target="_blank">github</a>
     </footer>

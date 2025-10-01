@@ -31,6 +31,11 @@ footer {
   z-index: 1000;  /* Make sure it stays on top */
 }
 
+div {
+  align-items: center;
+}
+
+
 header h1 {
   color: rgb(56, 51, 102);
   margin: 0 0 0.2em 0;
@@ -144,7 +149,6 @@ align-items: center;
   background: #22223b;
   color: #c9ada7;
   align-items: center;
-
   padding: 0.4em 1.2em;
   border: none;
   border-radius: 8px;
@@ -195,6 +199,12 @@ align-items: center;
   border-radius: 8px;
   margin-bottom: 1rem;
 }
+
+
+.button {
+  align-items: center;
+}
+
 
 /* Responsive images */
 @media (max-width: 700px) {

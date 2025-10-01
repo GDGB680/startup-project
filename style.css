@@ -6,3 +6,35 @@ body {
   padding: 0;
   min-height: 100vh;
 }
+
+header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #22223b;
+  padding: 1rem 0 0.5rem;
+  border-bottom: 2px solid #9a8c98;
+}
+
+footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #22223b;
+  padding: 1rem 0 0.5rem;
+  border-top: 2px solid #9a8c98;
+}
+
+header h1 {
+  color: rgb(56, 51, 102);
+  margin: 0 0 0.2em 0;
+  letter-spacing: 4px;
+  font-size: 2.2rem;
+}
+
+nav {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 1em;
+}
+

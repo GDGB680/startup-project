@@ -1,12 +1,13 @@
 body {
   font-family: 'Segoe UI', Arial, sans-serif;
   background: linear-gradient(120deg, #22223b 0%, #4a4e69 100%);
-  color: #d16023;
   flex-grow: 1;
   align-items: center;
   margin: 0;
   padding: 0;
   min-height: 100vh;
+    color: red;
+
 }
 
 header {
@@ -16,6 +17,7 @@ header {
   background: #22223b;
   padding: 1rem 0 0.5rem;
   border-bottom: 2px solid #9a8c98;
+    color: red;
 }
 
 footer {
@@ -30,6 +32,8 @@ footer {
   padding: 0.5rem 0 0.5rem;
   border-top: 2px solid #9a8c98;
   z-index: 1000;  /* Make sure it stays on top */
+    color: red;
+
 }
 
 
@@ -48,7 +52,7 @@ nav {
   display: flex;
   gap: 2rem;
   margin-bottom: 1em;
-    color: rgb(35, 114, 103);
+    color: rgb(34, 192, 171);
 
 }
 
@@ -79,9 +83,8 @@ nav a:hover {
 
 
 .card-section {
-  color: red;
+  color: rgb(0, 255, 21);
   align-items: center;
-
   max-width: 900px;
   margin: 0 auto 2rem auto;
   align-items: center;
@@ -95,6 +98,7 @@ nav a:hover {
   flex-wrap: wrap;
   gap: 2em;
   justify-content: center;
+    color: red;
 }
 
 
@@ -116,6 +120,25 @@ nav a:hover {
   align-items: center;
   transition: transform 0.1s, box-shadow 0.1s;
 }
+
+/* 
+ Profile card 
+.card-profile {
+  background: #4a4e69;
+  border-radius: 15px;
+  box-shadow: 0 6px 28px rgba(70, 69, 54, 0.22);
+  padding: 1.5em 2em;
+  min-width: 240px;
+  max-width: 320px;
+  margin: .6em 0;
+  color: #f2e9e4;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+ */
 
 
 /* details on cards (bio in profile & bounty price&deadline) */

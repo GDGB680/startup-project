@@ -8,7 +8,7 @@ export function Home() {
             <p>Request custom music, run contests, and discover hidden talent.</p>
         </section>
 
-        <a href="Profile.html">
+        {/* <a href="Profile.html">
             <button className="card-btn-big">Login</button>
         </a>
         <a href="Bounties.html">
@@ -19,7 +19,7 @@ export function Home() {
         </a>
         <a href="https://github.com/GDGB680/startup-project/tree/main#" target="_blank">
             <button className="card-btn-big">github</button>
-        </a>
+        </a> */}
 
         <section className="intro">
             <h2>George Dexter Brunt</h2>

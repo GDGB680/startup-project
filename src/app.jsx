@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './app.css';
 
 import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
-import { About } from './about/about';
+import { Home } from './home/home';
 import { PostRFP } from './postrfp/postrfp';
 import { Bounties } from './bounties/bounties';
 import { Submit } from './submit/submit';
@@ -21,35 +21,42 @@ export default function App() {
             </div>
             <menu className="navbar-nav">
               <li className="nav-item">
-                <a className="nav-link" href="index.html">
+                <NavLink className="nav-link" to="">
                   Home
-                </a>
+                </NavLink>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="PostRFQ.html">
+                <NavLink className="nav-link" to="PostRFQ">
                   PostRFQ
-                </a>
+                </NavLink>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="Bounties.html">
+                <NavLink className="nav-link" to="Bounties">
                   Bounties
-                </a>
+                </NavLink>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="Submit.html">
+                <NavLink className="nav-link" to="Submit">
                   Submit
-                </a>
+                </NavLink>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="Profile.html">
+                <NavLink className="nav-link" to="Profile">
                   Profile
-                </a>
+                </NavLink>
               </li>
             </menu>
           </nav>
         </header>
 
-        <main>App components go here</main>
+        <Routes>
+          <Route path='/' element={<Home />} exact />
+          <Route path='/postrfq' element={<PostRFP />} />
+          <Route path='/bounties' element={<Bounties />} />
+          <Route path='/submit' element={<Submit />} />
+          <Route path='/profile' element={<Profile />} />
+          <Route path='*' element={<NotFound />} />
+        </Routes>
 
         <footer className="bg-dark text-white-50">
           <div className="container-fluid">
@@ -62,4 +69,9 @@ export default function App() {
       </div>
     </BrowserRouter>
   );
+}
+
+
+function NotFound() {
+  return <main className="container-fluid bg-secondary text-center">404: Return to sender. Address unknown.</main>;
 }

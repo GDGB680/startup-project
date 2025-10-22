@@ -1,53 +1,121 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { StorageService } from '../services/storageService';
+import { useAuth } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 export function Submit() {
+  const [submissions, setSubmissions] = useState([]);
+  const [bounties, setBounties] = useState([]);
+  const [showSubmitForm, setShowSubmitForm] = useState(false);
+  const [selectedBounty, setSelectedBounty] = useState(null);
+  const [songTitle, setSongTitle] = useState('');
+  const { currentUser } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!currentUser) {
+      navigate('/');
+      return;
+    }
+    
+    const loadedSubmissions = StorageService.getSubmissions();
+    const userSubmissions = loadedSubmissions.filter(s => s.submittedBy === currentUser.username);
+    setSubmissions(userSubmissions);
+
+    const loadedBounties = StorageService.getBounties();
+    setBounties(loadedBounties);
+  }, [currentUser, navigate]);
+
+  const handleSubmitSong = (e) => {
+    e.preventDefault();
+    
+    const submission = {
+      bountyId: selectedBounty.id,
+      bountyTitle: selectedBounty.title,
+      songTitle: songTitle,
+    };
+    
+    StorageService.addSubmission(submission);
+    
+    // Reload submissions
+    const loadedSubmissions = StorageService.getSubmissions();
+    const userSubmissions = loadedSubmissions.filter(s => s.submittedBy === currentUser.username);
+    setSubmissions(userSubmissions);
+    
+    setSongTitle('');
+    setShowSubmitForm(false);
+    setSelectedBounty(null);
+    alert('Song submitted successfully!');
+  };
+
   return (
-<main>
-
-    <section className="intro">
-      <h2>Open Bounties</h2>
-      {/* <p>Request custom music, run contests, and discover hidden talent.</p> */}
-    </section>
-    <section className="submissions-section">
-      <h2>My Submissions</h2>
-      <div className="submissions-list">
-
-        {/* <div class="submission-card">
-          <h3>Techno Fusion</h3>
-          <span class="submission-status status-pending">Pending</span>
-          <div class="submission-details">
-            <span class="submission-tag">Techno</span>
-            <span class="submission-tag">Pop</span>
-            <span class="submission-date">Submitted: Sep 23, 2025</span>
-          </div>
-          <button class="play-btn">▶ Play</button>
+    <div>
+      <section className="card-section">
+        <h2>Submit to Open Bounties</h2>
+        <div className="card-list">
+          {bounties.map(bounty => (
+            <div key={bounty.id} className="card">
+              <h3>{bounty.title}</h3>
+              <p>Prize: ${bounty.bountyPrize}</p>
+              <button 
+                className="card-btn" 
+                onClick={() => {
+                  setSelectedBounty(bounty);
+                  setShowSubmitForm(true);
+                }}
+              >
+                Submit Song
+              </button>
+            </div>
+          ))}
         </div>
+      </section>
 
-        <div class="submission-card">
-          <h3>Lo-fi Dream</h3>
-          <span class="submission-status status-won">Winner</span>
-          <div class="submission-details">
-            <span class="submission-tag">Lo-fi</span>
-            <span class="submission-tag">Chill</span>
-            <span class="submission-date">Submitted: Sep 19, 2025</span>
+      {showSubmitForm && (
+        <section className="card-section">
+          <div className="card" style={{maxWidth: '500px', margin: '0 auto'}}>
+            <h3>Submit to: {selectedBounty.title}</h3>
+            <form onSubmit={handleSubmitSong}>
+              <label>Song Title:</label>
+              <input 
+                type="text"
+                value={songTitle}
+                onChange={(e) => setSongTitle(e.target.value)}
+                required
+                placeholder="Enter your song title"
+              />
+              <button type="submit" className="card-btn">Submit</button>
+              <button 
+                type="button" 
+                className="card-btn" 
+                onClick={() => setShowSubmitForm(false)}
+              >
+                Cancel
+              </button>
+            </form>
           </div>
-          <button class="play-btn">▶ Play</button>
+        </section>
+      )}
+
+      <section className="card-section">
+        <h2>My Submissions</h2>
+        <div className="card-list">
+          {submissions.length > 0 ? (
+            submissions.map(submission => (
+              <div key={submission.id} className="card">
+                <h3>{submission.songTitle}</h3>
+                <span className={`tag status-${submission.status.toLowerCase()}`}>
+                  {submission.status}
+                </span>
+                <p>Bounty: {submission.bountyTitle}</p>
+                <p>Submitted: {new Date(submission.submittedDate).toLocaleDateString()}</p>
+              </div>
+            ))
+          ) : (
+            <p>No submissions yet. Submit to a bounty above!</p>
+          )}
         </div>
-
-        <div class="submission-card">
-          <h3>Epic Journey</h3>
-          <span class="submission-status status-lost">Not Selected</span>
-          <div class="submission-details">
-            <span class="submission-tag">Orchestra</span>
-            <span class="submission-tag">Cinematic</span>
-            <span class="submission-date">Submitted: Sep 15, 2025</span>
-          </div>
-          <button class="play-btn">▶ Play</button>
-        </div> */}
-
-      </div>
-    </section>
-
-  </main>
+      </section>
+    </div>
   );
 }

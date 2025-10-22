@@ -1,5 +1,14 @@
 // storageService.js - Manages all localStorage operations
 
+const mockBountyTitles = [
+  'Epic Cinema Orchestral Suite',
+  'Upbeat Techno Pop Remix',
+  'Chill Lo-Fi Gaming Background',
+  'Dynamic Action Thriller Music',
+  'Ambient Meditation Track',
+  'Funky Disco Dance Beats',
+];
+
 export class StorageService {
   // User Management
   static getCurrentUser() {
@@ -42,6 +51,12 @@ export class StorageService {
     }
   }
 
+  static deleteBounty(id) {
+    const bounties = this.getBounties();
+    const filtered = bounties.filter(b => b.id !== id);
+    localStorage.setItem('bounties', JSON.stringify(filtered));
+  }
+
   // Submissions Management
   static getSubmissions() {
     return JSON.parse(localStorage.getItem('submissions')) || [];
@@ -70,36 +85,78 @@ export class StorageService {
     }
   }
 
-  // Initialize with mock data
+  // Mock data generation
+  static generateMockBountyTitle() {
+    return mockBountyTitles[Math.floor(Math.random() * mockBountyTitles.length)];
+  }
+
+  // Initialize with mock data on first load
   static initializeMockData() {
     if (!this.getBounties().length) {
       const mockBounties = [
         {
           id: 1,
-          title: 'Epic Orchestra',
+          title: 'Epic Orchestra for Film Trailer',
           genres: ['Orchestra', 'Cinematic'],
           bountyPrize: 50,
           duration: '45s',
           deadline: '2025-10-29',
-          details: 'For short film trailer',
+          details: 'Need dramatic orchestral music for short film trailer. Must convey emotion and action.',
           postedBy: 'FilmMaker123',
-          postedDate: new Date().toISOString(),
+          postedDate: new Date(Date.now() - 86400000).toISOString(),
           submissions: []
         },
         {
           id: 2,
-          title: 'Inspirational Techno Pop',
+          title: 'Upbeat Techno Pop for YouTube Ad',
           genres: ['Techno', 'Pop'],
           bountyPrize: 30,
           duration: '30s',
           deadline: '2025-10-25',
-          details: 'For YouTube ad',
+          details: 'Looking for energetic, modern techno-pop track for product ad campaign.',
           postedBy: 'MarketingPro',
-          postedDate: new Date().toISOString(),
+          postedDate: new Date(Date.now() - 172800000).toISOString(),
+          submissions: []
+        },
+        {
+          id: 3,
+          title: 'Chill Lo-Fi Gaming Background',
+          genres: ['Lo-fi', 'Chill'],
+          bountyPrize: 25,
+          duration: '2min',
+          deadline: '2025-10-30',
+          details: 'Relaxing lo-fi beats for indie game. Should be calming and loopable.',
+          postedBy: 'GameDev88',
+          postedDate: new Date(Date.now() - 259200000).toISOString(),
           submissions: []
         }
       ];
       localStorage.setItem('bounties', JSON.stringify(mockBounties));
+    }
+
+    // Initialize mock submissions
+    if (!this.getSubmissions().length) {
+      const mockSubmissions = [
+        {
+          id: 101,
+          bountyId: 1,
+          bountyTitle: 'Epic Orchestra for Film Trailer',
+          songTitle: 'Cinematic Dreams',
+          submittedBy: 'ComposerX',
+          submittedDate: new Date(Date.now() - 432000000).toISOString(),
+          status: 'Winner'
+        },
+        {
+          id: 102,
+          bountyId: 2,
+          bountyTitle: 'Upbeat Techno Pop for YouTube Ad',
+          songTitle: 'Electric Pulse',
+          submittedBy: 'BeatMaker420',
+          submittedDate: new Date(Date.now() - 345600000).toISOString(),
+          status: 'Pending'
+        }
+      ];
+      localStorage.setItem('submissions', JSON.stringify(mockSubmissions));
     }
   }
 }

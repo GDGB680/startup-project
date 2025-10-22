@@ -1,16 +1,29 @@
-import React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React, { useState, useEffect } from 'react';
 import './app.css';
-import { BrowserRouter, NavLink, Route, Routes, Navigate } from 'react-router-dom';
+import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
-import { Home } from './home/home';
-import { PostRFP } from './postrfp/postrfp';
-import { Bounties } from './bounties/bounties';
-import { Submit } from './submit/submit';
-import { Profile } from './profile/profile';
+import { Home } from './home/home';          
+import { PostRFP } from './postrfp/postrfp';    
+import { Bounties } from './bounties/bounties'; 
+import { Submit } from './submit/submit';    
+import { Profile } from './profile/profile';   
+import { StorageService } from './services/storageService';
+
+
 
 function Header() {
   const { currentUser, logout } = useAuth();
+  const [notifications, setNotifications] = useState([]);
+
+  // Mock WebSocket - simulate new bounties appearing in real-time
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const newBounty = `New bounty posted: "${StorageService.generateMockBountyTitle()}"`;
+      setNotifications(prev => [newBounty, ...prev.slice(0, 4)]);
+    }, 15000); // New bounty every 15 seconds
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <header>
@@ -32,6 +45,15 @@ function Header() {
         <NavLink to="/submit">Submit</NavLink>
         <NavLink to="/profile">Profile</NavLink>
       </nav>
+      
+      {/* Real-time notifications */}
+      {notifications.length > 0 && (
+        <div className="notifications">
+          {notifications.map((notif, idx) => (
+            <div key={idx} className="notification">{notif}</div>
+          ))}
+        </div>
+      )}
     </header>
   );
 }
@@ -42,7 +64,7 @@ function AppContent() {
       <Header />
       <main>
         <Routes>
-          <Route path="/" element={<Home />} exact />
+          <Route path="/" element={<Home />} />
           <Route path="/post-rfp" element={<PostRFP />} />
           <Route path="/bounties" element={<Bounties />} />
           <Route path="/submit" element={<Submit />} />
@@ -51,9 +73,12 @@ function AppContent() {
         </Routes>
       </main>
       <footer>
-        <a href="https://github.com/GDGB680/startup-project" target="_blank" rel="noreferrer">
-          GitHub
-        </a>
+        <div>
+          <p>Created by <strong>George Dexter Brunt</strong></p>
+          <a href="https://github.com/GDGB680/startup-project" target="_blank" rel="noreferrer">
+            🔗 View on GitHub
+          </a>
+        </div>
       </footer>
     </>
   );
@@ -70,5 +95,9 @@ export default function App() {
 }
 
 function NotFound() {
-  return <div className="container text-center mt-5">404: Return to sender. Address unknown.</div>;
+  return (
+    <div className="container text-center mt-5">
+      <h1>404: Return to sender. Address unknown.</h1>
+    </div>
+  );
 }

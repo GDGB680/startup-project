@@ -33,7 +33,7 @@ export function Home() {
   return (
     <div>
       <section className="intro">
-        <h2>🎵 Find Your Soundtrack</h2>
+        <h2>Find Your Soundtrack</h2>
         <p>Request custom music, run contests, and discover hidden talent.</p>
       </section>
 
@@ -72,35 +72,35 @@ export function Home() {
 
       {currentUser && (
         <section className="card-section">
-          <h2>Welcome, {currentUser.username}! 🎉</h2>
+          <h2>Welcome, {currentUser.username}!</h2>
           <div className="card-list">
             <button 
               onClick={() => navigate('/bounties')} 
               className="card-btn-big"
               style={{display: 'block', margin: '1rem auto'}}
             >
-              🎯 View Bounties
+              View Bounties
             </button>
             <button 
               onClick={() => navigate('/post-rfp')} 
               className="card-btn-big"
               style={{display: 'block', margin: '1rem auto'}}
             >
-              ✏️ Post New Bounty
+              Post New Bounty
             </button>
             <button 
               onClick={() => navigate('/submit')} 
               className="card-btn-big"
               style={{display: 'block', margin: '1rem auto'}}
             >
-              🎵 Submit Your Work
+              Submit Your Work
             </button>
             <button 
               onClick={() => navigate('/profile')} 
               className="card-btn-big"
               style={{display: 'block', margin: '1rem auto'}}
             >
-              👤 View Profile
+              View Profile
             </button>
           </div>
         </section>

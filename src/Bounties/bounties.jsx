@@ -34,7 +34,7 @@ export function Bounties() {
       <p><strong>Budget:</strong> ${bounty.bountyPrize} | <strong>Duration:</strong> {bounty.duration}</p>
       <p><strong>Deadline:</strong> {new Date(bounty.deadline).toLocaleDateString()}</p>
       <p><em>{bounty.details}</em></p>
-      <small>📌 Posted by: {bounty.postedBy}</small>
+      <small>Posted by: {bounty.postedBy}</small>
       <button className="card-btn">View Details</button>
     </div>
   );
@@ -43,7 +43,7 @@ export function Bounties() {
     <div>
       {currentUser && myPostedBounties.length > 0 && (
         <section className="card-section">
-          <h2>🏆 Your Posted Bounties</h2>
+          <h2>Your Posted Bounties</h2>
           <div className="card-list">
             {myPostedBounties.map(bounty => (
               <BountyCard key={bounty.id} bounty={bounty} />
@@ -53,7 +53,7 @@ export function Bounties() {
       )}
 
       <section className="card-section">
-        <h2>📢 Open Bounties</h2>
+        <h2>Open Bounties</h2>
         <div className="card-list">
           {otherBounties.length > 0 ? (
             otherBounties.map(bounty => (

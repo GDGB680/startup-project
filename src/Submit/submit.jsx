@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { StorageService } from '../services/storageService';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
 export function Submit() {
-  const [submissions, setSubmissions] = useState([]);
   const [bounties, setBounties] = useState([]);
-  const [showSubmitForm, setShowSubmitForm] = useState(false);
+  const [submissions, setSubmissions] = useState([]);
+  const [showForm, setShowForm] = useState(false);
   const [selectedBounty, setSelectedBounty] = useState(null);
   const [songTitle, setSongTitle] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
   const { currentUser } = useAuth();
   const navigate = useNavigate();
 
@@ -17,51 +18,82 @@ export function Submit() {
       navigate('/');
       return;
     }
-    
-    const loadedSubmissions = StorageService.getSubmissions();
-    const userSubmissions = loadedSubmissions.filter(s => s.submittedBy === currentUser.username);
-    setSubmissions(userSubmissions);
-
-    const loadedBounties = StorageService.getBounties();
-    setBounties(loadedBounties);
+    loadData();
   }, [currentUser, navigate]);
 
-  const handleSubmitSong = (e) => {
-    e.preventDefault();
-    
-    const submission = {
-      bountyId: selectedBounty.id,
-      bountyTitle: selectedBounty.title,
-      songTitle: songTitle,
-    };
-    
-    StorageService.addSubmission(submission);
-    
-    // Reload submissions
-    const loadedSubmissions = StorageService.getSubmissions();
-    const userSubmissions = loadedSubmissions.filter(s => s.submittedBy === currentUser.username);
-    setSubmissions(userSubmissions);
-    
-    setSongTitle('');
-    setShowSubmitForm(false);
-    setSelectedBounty(null);
-    alert('Song submitted successfully!');
+  const loadData = async () => {
+    try {
+      setLoading(true);
+      
+      // Fetch all bounties
+      const bountiesRes = await fetch('/api/bounties', { credentials: 'include' });
+      if (bountiesRes.ok) {
+        setBounties(await bountiesRes.json());
+      }
+
+      // Fetch user submissions
+      const submissionsRes = await fetch('/api/submissions/user', { credentials: 'include' });
+      if (submissionsRes.ok) {
+        setSubmissions(await submissionsRes.json());
+      }
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
   };
+
+  const handleSubmitSong = async (e) => {
+    e.preventDefault();
+    setError('');
+
+    try {
+      const response = await fetch('/api/submissions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          bountyId: selectedBounty.id,
+          bountyTitle: selectedBounty.title,
+          songTitle: songTitle
+        }),
+        credentials: 'include'
+      });
+
+      if (response.ok) {
+        setSongTitle('');
+        setShowForm(false);
+        setSelectedBounty(null);
+        await loadData();
+        alert('Song submitted successfully!');
+      } else {
+        const error = await response.json();
+        setError(error.msg || 'Failed to submit');
+      }
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
+  if (loading) {
+    return <div style={{textAlign: 'center', padding: '2rem'}}>Loading...</div>;
+  }
 
   return (
     <div>
+      {error && <div style={{color: '#dc3545', margin: '1rem'}}>{error}</div>}
+
       <section className="card-section">
-        <h2>Submit to Open Bounties</h2>
+        <h2>Available Bounties</h2>
         <div className="card-list">
           {bounties.map(bounty => (
             <div key={bounty.id} className="card">
               <h3>{bounty.title}</h3>
               <p>Prize: ${bounty.bountyPrize}</p>
               <button 
-                className="card-btn" 
+                className="card-btn"
                 onClick={() => {
                   setSelectedBounty(bounty);
-                  setShowSubmitForm(true);
+                  setShowForm(true);
                 }}
               >
                 Submit Song
@@ -71,12 +103,11 @@ export function Submit() {
         </div>
       </section>
 
-      {showSubmitForm && (
+      {showForm && (
         <section className="card-section">
           <div className="card" style={{maxWidth: '500px', margin: '0 auto'}}>
             <h3>Submit to: {selectedBounty.title}</h3>
             <form onSubmit={handleSubmitSong}>
-              <label>Song Title:</label>
               <input 
                 type="text"
                 value={songTitle}
@@ -88,7 +119,7 @@ export function Submit() {
               <button 
                 type="button" 
                 className="card-btn" 
-                onClick={() => setShowSubmitForm(false)}
+                onClick={() => setShowForm(false)}
               >
                 Cancel
               </button>
@@ -98,7 +129,7 @@ export function Submit() {
       )}
 
       <section className="card-section">
-        <h2>My Submissions</h2>
+        <h2>🎵 My Submissions</h2>
         <div className="card-list">
           {submissions.length > 0 ? (
             submissions.map(submission => (

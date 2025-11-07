@@ -1,34 +1,52 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import { StorageService } from '../services/storageService';
 
 export function Home() {
-  const { currentUser, login } = useAuth();
-  const [username, setUsername] = useState('');
+  const { currentUser, login, signup, loading } = useAuth();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [isSignup, setIsSignup] = useState(false);
+  const [error, setError] = useState('');
   const [bountyCount, setBountyCount] = useState(0);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    // Real-time bounty count updates
-    const bounties = StorageService.getBounties();
-    setBountyCount(bounties.length);
-
-    const interval = setInterval(() => {
-      const updatedBounties = StorageService.getBounties();
-      setBountyCount(updatedBounties.length);
-    }, 5000);
-
-    return () => clearInterval(interval);
+  React.useEffect(() => {
+    // Fetch bounty count from backend
+    fetchBountyCount();
   }, []);
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-    if (username.trim()) {
-      login(username);
-      setUsername('');
+  const fetchBountyCount = async () => {
+    try {
+      const response = await fetch('/api/bounties');
+      if (response.ok) {
+        const bounties = await response.json();
+        setBountyCount(bounties.length);
+      }
+    } catch (error) {
+      console.error('Failed to fetch bounty count:', error);
     }
   };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
+
+    const result = isSignup 
+      ? await signup(email, password)
+      : await login(email, password);
+
+    if (result.success) {
+      setEmail('');
+      setPassword('');
+    } else {
+      setError(result.message);
+    }
+  };
+
+  if (loading) {
+    return <div style={{textAlign: 'center', padding: '2rem'}}>Loading...</div>;
+  }
 
   return (
     <div>
@@ -40,39 +58,61 @@ export function Home() {
       <section className="card-section">
         <div style={{textAlign: 'center'}}>
           <h3 style={{fontSize: '2.5rem', color: '#c9ada7'}}>{bountyCount}</h3>
-          <p>Bounties Available (Live Updates)</p>
+          <p>Bounties Available</p>
         </div>
       </section>
 
       {!currentUser && (
         <section className="card-section">
           <div className="card" style={{ maxWidth: '400px', margin: '0 auto' }}>
-            <h3>Login to Get Started</h3>
-            <form onSubmit={handleLogin}>
+            <h3>{isSignup ? 'Create Account' : 'Login'}</h3>
+            {error && <div style={{color: '#dc3545', marginBottom: '1rem'}}>{error}</div>}
+            <form onSubmit={handleSubmit}>
               <input
-                type="text"
-                placeholder="Enter your username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 required
                 style={{
                   padding: '0.5rem',
                   borderRadius: '5px',
                   border: 'none',
-                  marginBottom: '1rem'
+                  marginBottom: '1rem',
+                  width: '100%'
                 }}
               />
-              <button type="submit" className="card-btn" style={{width: '100%'}}>
-                Login
+              <input
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                style={{
+                  padding: '0.5rem',
+                  borderRadius: '5px',
+                  border: 'none',
+                  marginBottom: '1rem',
+                  width: '100%'
+                }}
+              />
+              <button type="submit" className="card-btn" style={{width: '100%', marginBottom: '1rem'}}>
+                {isSignup ? 'Sign Up' : 'Login'}
               </button>
             </form>
+            <button 
+              onClick={() => setIsSignup(!isSignup)}
+              style={{background: 'none', border: 'none', color: '#c9ada7', cursor: 'pointer'}}
+            >
+              {isSignup ? 'Already have an account? Login' : 'Need an account? Sign Up'}
+            </button>
           </div>
         </section>
       )}
 
       {currentUser && (
         <section className="card-section">
-          <h2>Welcome, {currentUser.username}!</h2>
+          <h2>Welcome, {currentUser.email}! 🎉</h2>
           <div className="card-list">
             <button 
               onClick={() => navigate('/bounties')} 

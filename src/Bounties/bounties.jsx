@@ -1,27 +1,42 @@
 import React, { useState, useEffect } from 'react';
-import { StorageService } from '../services/storageService';
 import { useAuth } from '../context/AuthContext';
 
 export function Bounties() {
   const [bounties, setBounties] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
   const { currentUser } = useAuth();
 
   useEffect(() => {
-    // Load bounties from localStorage
-    const loadBounties = () => {
-      const loadedBounties = StorageService.getBounties();
-      setBounties(loadedBounties);
-    };
-
-    loadBounties();
-
-    // Refresh bounties every 5 seconds (simulate real-time updates)
-    const interval = setInterval(loadBounties, 5000);
-    return () => clearInterval(interval);
+    fetchBounties();
   }, []);
 
-  const myPostedBounties = bounties.filter(b => b.postedBy === currentUser?.username);
-  const otherBounties = bounties.filter(b => b.postedBy !== currentUser?.username);
+  const fetchBounties = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch('/api/bounties', {
+        credentials: 'include'
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setBounties(data);
+      } else {
+        setError('Failed to load bounties');
+      }
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (loading) {
+    return <div style={{textAlign: 'center', padding: '2rem'}}>Loading bounties...</div>;
+  }
+
+  const myBounties = bounties.filter(b => b.postedBy === currentUser?.email);
+  const otherBounties = bounties.filter(b => b.postedBy !== currentUser?.email);
 
   const BountyCard = ({ bounty }) => (
     <div className="card">
@@ -33,7 +48,7 @@ export function Bounties() {
       </div>
       <p><strong>Budget:</strong> ${bounty.bountyPrize} | <strong>Duration:</strong> {bounty.duration}</p>
       <p><strong>Deadline:</strong> {new Date(bounty.deadline).toLocaleDateString()}</p>
-      <p><em>{bounty.details}</em></p>
+      <p>{bounty.details}</p>
       <small>Posted by: {bounty.postedBy}</small>
       <button className="card-btn">View Details</button>
     </div>
@@ -41,11 +56,13 @@ export function Bounties() {
 
   return (
     <div>
-      {currentUser && myPostedBounties.length > 0 && (
+      {error && <div style={{color: '#dc3545', margin: '1rem'}}>{error}</div>}
+
+      {currentUser && myBounties.length > 0 && (
         <section className="card-section">
           <h2>Your Posted Bounties</h2>
           <div className="card-list">
-            {myPostedBounties.map(bounty => (
+            {myBounties.map(bounty => (
               <BountyCard key={bounty.id} bounty={bounty} />
             ))}
           </div>
@@ -67,9 +84,12 @@ export function Bounties() {
         </div>
       </section>
 
-      <section style={{textAlign: 'center', margin: '2rem 0', color: '#9a8c98'}}>
-        <small>Last updated: {new Date().toLocaleTimeString()}</small>
-      </section>
+      <button 
+        onClick={fetchBounties}
+        style={{display: 'block', margin: '2rem auto', padding: '0.5rem 1rem'}}
+      >
+        Refresh
+      </button>
     </div>
   );
 }

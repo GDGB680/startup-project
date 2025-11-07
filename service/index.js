@@ -28,6 +28,17 @@ let submissions = [];
 // Initialize with mock data
 initializeMockData();
 
+
+// Check auth status
+apiRouter.get('/auth/status', verifyAuth, async (req, res) => {
+  const user = await findUser('token', req.cookies[authCookieName]);
+  if (user) {
+    res.send({ email: user.email });
+  } else {
+    res.status(401).send({ msg: 'Not authenticated' });
+  }
+});
+
 // ==================== AUTH ENDPOINTS ====================
 
 // Create a new user

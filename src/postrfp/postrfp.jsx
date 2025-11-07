@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { StorageService } from '../services/storageService';
 import { useAuth } from '../context/AuthContext';
 
 export function PostRFP() {
@@ -14,26 +13,46 @@ export function PostRFP() {
     deadline: '',
     details: ''
   });
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const genreOptions = ['Techno', 'Pop', 'Lo-fi', 'Chill', 'Orchestra', 'Cinematic'];
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    
+    setError('');
+    setLoading(true);
+
     if (!currentUser) {
-      alert('Please login to post a bounty');
+      setError('Please login to post a bounty');
       navigate('/');
       return;
     }
 
-    const bounty = {
-      ...formData,
-      bountyPrize: Number(formData.bountyPrize)
-    };
-    
-    StorageService.addBounty(bounty);
-    alert('Bounty posted successfully!');
-    navigate('/bounties');
+    try {
+      const response = await fetch('/api/bounties', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+        credentials: 'include'
+      });
+
+      if (response.ok) {
+        alert('Bounty posted successfully!');
+        navigate('/bounties');
+      } else {
+        const error = await response.json();
+        setError(error.msg || 'Failed to create bounty');
+      }
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleChange = (e) => {
+    setFormData({...formData, [e.target.name]: e.target.value});
   };
 
   const handleGenreChange = (e) => {
@@ -41,19 +60,15 @@ export function PostRFP() {
     setFormData({...formData, genres: selected});
   };
 
-  const handleChange = (e) => {
-    setFormData({...formData, [e.target.name]: e.target.value});
-  };
-
   return (
     <div>
       <section className="card-section post-rfq-section">
         <h2>Submit a Request for Proposal</h2>
+        {error && <div style={{color: '#dc3545', marginBottom: '1rem'}}>{error}</div>}
         <form onSubmit={handleSubmit}>
-          <label htmlFor="title">Bounty Title:</label>
+          <label>Bounty Title:</label>
           <input 
             type="text" 
-            id="title"
             name="title"
             value={formData.title}
             onChange={handleChange}
@@ -61,9 +76,8 @@ export function PostRFP() {
             placeholder="e.g., Epic Orchestra for Film"
           />
 
-          <label htmlFor="genres">Desired Genres:</label>
+          <label>Desired Genres:</label>
           <select 
-            id="genres" 
             name="genres"
             multiple 
             required
@@ -73,12 +87,10 @@ export function PostRFP() {
               <option key={genre} value={genre}>{genre}</option>
             ))}
           </select>
-          <small>Hold Ctrl/Cmd to select multiple</small>
 
-          <label htmlFor="bountyPrize">Bounty Prize ($):</label>
+          <label>Bounty Prize ($):</label>
           <input 
             type="number" 
-            id="bountyPrize"
             name="bountyPrize"
             min="1"
             value={formData.bountyPrize}
@@ -86,30 +98,27 @@ export function PostRFP() {
             required
           />
 
-          <label htmlFor="duration">Time Duration (e.g., 60 sec):</label>
+          <label>Time Duration:</label>
           <input 
             type="text" 
-            id="duration"
             name="duration"
             value={formData.duration}
             onChange={handleChange}
             required
-            placeholder="e.g., 30s, 1min, 2:30"
+            placeholder="e.g., 30s, 1min"
           />
 
-          <label htmlFor="deadline">Deadline:</label>
+          <label>Deadline:</label>
           <input 
             type="date" 
-            id="deadline"
             name="deadline"
             value={formData.deadline}
             onChange={handleChange}
             required
           />
 
-          <label htmlFor="details">Details:</label>
+          <label>Details:</label>
           <textarea 
-            id="details"
             name="details"
             value={formData.details}
             onChange={handleChange}
@@ -118,7 +127,9 @@ export function PostRFP() {
             placeholder="Describe what you're looking for..."
           />
 
-          <button type="submit" className="card-btn">Post Bounty</button>
+          <button type="submit" className="card-btn" disabled={loading}>
+            {loading ? 'Posting...' : 'Post Bounty'}
+          </button>
         </form>
       </section>
     </div>

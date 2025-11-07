@@ -233,7 +233,16 @@ apiRouter.get('/users/:email/profile', (req, res) => {
 
 // ==================== THIRD PARTY API ====================
 
-
+// Get inspirational advice
+apiRouter.get('/api/advice', async (req, res) => {
+  try {
+    const response = await fetch('https://api.adviceslip.com/advice');
+    const data = await response.json();
+    res.send(data.slip);
+  } catch (error) {
+    res.status(500).send({ msg: 'Failed to fetch advice' });
+  }
+});
 
 // ==================== MIDDLEWARE ====================
 

@@ -175,7 +175,7 @@ export function Home() {
           rel="noreferrer"
           style={{ color: '#c9ada7', textDecoration: 'none' }}
         >
-          🔗 View Source Code on GitHub
+        View Source Code on GitHub
         </a>
       </section>
     </div>

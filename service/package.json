@@ -15,12 +15,11 @@
   "author": "George Dexter Brunt",
   "license": "ISC",
   "dependencies": {
-    "express": "^5.1.0",
-    "cookie-parser": "^1.4.7",
     "bcryptjs": "^3.0.3",
+    "cookie-parser": "^1.4.7",
+    "express": "^5.1.0",
     "uuid": "^13.0.0"
   },
-  "devDependencies": {},
   "keywords": [],
   "bugs": {
     "url": "https://github.com/GDGB680/startup-project/issues"

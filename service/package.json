@@ -19,5 +19,11 @@
     "cookie-parser": "^1.4.7",
     "bcryptjs": "^3.0.3",
     "uuid": "^13.0.0"
-  }
+  },
+  "devDependencies": {},
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/GDGB680/startup-project/issues"
+  },
+  "homepage": "https://github.com/GDGB680/startup-project#readme"
 }

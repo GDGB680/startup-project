@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import { AdviceWidget } from '../components/adviceWidget';
+import { adviceWidget } from '../components/adviceWidget';
 
 export function Home() {
   const { currentUser, login, signup, loading } = useAuth();

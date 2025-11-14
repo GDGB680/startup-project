@@ -785,4 +785,30 @@ This study guide covers the major topics in CS260:
 - **Web infrastructure:** DNS, HTTPS, ports, security
 - **Advanced layouts:** Flexbox, responsive design
 
-Good luck with your CS260 exam!
+
+
+# MongoDB Database Integration
+
+## What I Learned
+- MongoDB is a NoSQL database that stores data as JSON documents
+- Connection strings use mongodb+srv:// format for Atlas
+- Async/await is essential for database operations
+- Collections are like tables, documents are like rows
+
+## Changes Made
+- Created `service/database.js` with all MongoDB operations
+- Updated `service/index.js` to use database functions instead of in-memory arrays
+- All user data now persists in MongoDB
+- Authentication uses hashed passwords (bcryptjs)
+- Bounties and submissions store in MongoDB collections
+
+## Key Files
+- `service/database.js` - All database operations
+- `service/index.js` - API endpoints using MongoDB
+- `service/dbConfig.json` - MongoDB credentials (gitignored)
+
+## How It Works
+1. User signs up → password hashed → stored in `users` collection
+2. User posts bounty → stored in `bounties` collection
+3. User submits → stored in `submissions` collection
+4. All data persists even after server restart

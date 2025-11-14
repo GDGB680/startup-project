@@ -68,7 +68,7 @@ export function Home() {
         <section className="card-section">
           <div className="card" style={{ maxWidth: '400px', margin: '0 auto' }}>
             <h3>{isSignup ? 'Create Account' : 'Login'}</h3>
-            {error && <div style={{ color: '#dc3545', marginBottom: '1rem' }}>{error}</div>}
+            {error && <div style={{ color: '#35addcff', marginBottom: '1rem' }}>{error}</div>}
             <form onSubmit={handleSubmit}>
               <input
                 type="email"

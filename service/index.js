@@ -134,9 +134,16 @@ apiRouter.post('/submissions', verifyAuth, async (req, res) => {
   };
   
   await dbCreateSubmission(submission);
+  
+  ws.broadcast({
+    type: 'submission_created',
+    submission: submission,
+    submittedBy: user.email,
+    timestamp: new Date().toISOString()
+  });
+  
   res.send(submission);
 });
-
 // ==================== USER PROFILE ENDPOINTS ====================
 
 apiRouter.get('/users/:email/profile', async (req, res) => {

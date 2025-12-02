@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { LiveFeed } from '../components/LiveFeed';
 import { adviceWidget } from '../components/adviceWidget';
 
 export function Home() {

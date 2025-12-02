@@ -17,8 +17,11 @@ import {
 } from './database.js';
 
 const app = express();
+const httpServer = http.createServer(app);
 const authCookieName = 'token';
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
+
+const ws = createWebSocketServer(httpServer);
 
 app.use(express.json());
 app.use(cookieParser());
@@ -26,6 +29,9 @@ app.use(express.static('public'));
 
 const apiRouter = express.Router();
 app.use('/api', apiRouter);
+
+app.wsServer = ws;
+
 
 // ==================== AUTH ENDPOINTS ====================
 
@@ -139,6 +145,12 @@ apiRouter.get('/users/:email/profile', async (req, res) => {
     email: req.params.email,
     ...stats
   });
+});
+
+// ==================== WEBSOCKET STATS ====================
+
+apiRouter.get('/api/ws/active-users', (req, res) => {
+  res.send({ activeUsers: ws.getActiveUsers() });
 });
 
 // ==================== THIRD PARTY API ====================

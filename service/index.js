@@ -204,4 +204,5 @@ app.use((_req, res) => {
 
 app.listen(port, () => {
   console.log(`Bounty Hunter service running on port ${port}`);
+  console.log(`WebSocket server ready at ws://localhost:${port}/ws`);
 });

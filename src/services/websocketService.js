@@ -50,8 +50,14 @@ class WebSocketService {
     });
   }
 
+  send(data) {
+    if (this.ws && this.ws.readyState === WebSocket.OPEN) {
+      this.ws.send(JSON.stringify(data));
+    } else {
+      console.warn('WebSocket not connected');
+    }
+  }
 
-  
   disconnect() {
     if (this.ws) {
       this.ws.close();
@@ -59,4 +65,9 @@ class WebSocketService {
     }
   }
 
+    isConnected() {
+    return this.ws && this.ws.readyState === WebSocket.OPEN;
+  }
 }
+
+export const websocketService = new WebSocketService();

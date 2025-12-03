@@ -58,6 +58,52 @@ class WebSocketService {
     }
   }
 
+    handleMessage(message) {
+    console.log('Received:', message.type);
+
+    // Call all listeners for this message type
+    if (this.listeners.has(message.type)) {
+      this.listeners.get(message.type).forEach(callback => {
+        callback(message);
+      });
+    }
+  }
+
+  on(messageType, callback) {
+    if (!this.listeners.has(messageType)) {
+      this.listeners.set(messageType, []);
+    }
+    this.listeners.get(messageType).push(callback);
+  }
+
+  off(messageType, callback) {
+    if (this.listeners.has(messageType)) {
+      const callbacks = this.listeners.get(messageType);
+      const index = callbacks.indexOf(callback);
+      if (index > -1) {
+        callbacks.splice(index, 1);
+      }
+    }
+  }
+
+
+
+  attemptReconnect(userId) {
+    if (this.reconnectAttempts < this.maxReconnectAttempts) {
+      this.reconnectAttempts++;
+      console.log(`🔄 Reconnecting in ${this.reconnectDelay}ms... (Attempt ${this.reconnectAttempts})`);
+      
+      setTimeout(() => {
+        this.connect(userId).catch(err => {
+          console.error('Reconnection failed:', err);
+        });
+      }, this.reconnectDelay);
+    } else {
+      console.error('Max reconnection attempts reached');
+    }
+  }
+
+
   disconnect() {
     if (this.ws) {
       this.ws.close();

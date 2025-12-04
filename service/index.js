@@ -15,6 +15,8 @@ import {
   createSubmission as dbCreateSubmission,
   getUserStats
 } from './database.js';
+import http from 'http';
+import { createWebSocketServer } from './wsServer.js';
 
 const app = express();
 const httpServer = http.createServer(app);
@@ -156,7 +158,7 @@ apiRouter.get('/users/:email/profile', async (req, res) => {
 
 // ==================== WEBSOCKET STATS ====================
 
-apiRouter.get('/api/ws/active-users', (req, res) => {
+apiRouter.get('/ws/active-users', (req, res) => {
   res.send({ activeUsers: ws.getActiveUsers() });
 });
 
@@ -202,7 +204,7 @@ app.use((_req, res) => {
   res.sendFile('index.html', { root: 'public' });
 });
 
-app.listen(port, () => {
+httpServer.listen(port, () => {
   console.log(`Bounty Hunter service running on port ${port}`);
   console.log(`WebSocket server ready at ws://localhost:${port}/ws`);
 });

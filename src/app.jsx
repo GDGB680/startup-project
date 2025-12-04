@@ -76,7 +76,7 @@ function AppContent() {
         <div>
           <p>Created by <strong>George Dexter Brunt</strong></p>
           <a href="https://github.com/GDGB680/startup-project" target="_blank" rel="noreferrer">
-            🔗 View on GitHub
+            View on GitHub
           </a>
         </div>
       </footer>

@@ -8,7 +8,6 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Check if user is already logged in by calling backend
     checkAuthStatus();
   }, []);
 
@@ -18,6 +17,8 @@ export function AuthProvider({ children }) {
       if (response.ok) {
         const user = await response.json();
         setCurrentUser(user);
+        // Connect WebSocket when user logs in
+        await websocketService.connect(user.email);
       }
     } catch (error) {
       console.error('Failed to check auth status:', error);
@@ -32,12 +33,14 @@ export function AuthProvider({ children }) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
-        credentials: 'include' // Important for cookies
+        credentials: 'include'
       });
 
       if (response.ok) {
         const user = await response.json();
         setCurrentUser(user);
+        // Connect WebSocket on login
+        await websocketService.connect(user.email);
         return { success: true };
       } else {
         const error = await response.json();
@@ -60,6 +63,8 @@ export function AuthProvider({ children }) {
       if (response.ok) {
         const user = await response.json();
         setCurrentUser(user);
+        // Connect WebSocket on signup
+        await websocketService.connect(user.email);
         return { success: true };
       } else {
         const error = await response.json();
@@ -76,6 +81,7 @@ export function AuthProvider({ children }) {
         method: 'DELETE',
         credentials: 'include'
       });
+      websocketService.disconnect();
       setCurrentUser(null);
     } catch (error) {
       console.error('Logout failed:', error);

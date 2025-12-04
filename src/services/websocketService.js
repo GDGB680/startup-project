@@ -3,6 +3,10 @@ class WebSocketService {
   constructor() {
     this.ws = null;
     this.url = this.getWebSocketUrl();
+    this.listeners = new Map();
+    this.reconnectAttempts = 0;
+    this.maxReconnectAttempts = 5;
+    this.reconnectDelay = 3000;
   }
 
   getWebSocketUrl() {
@@ -86,7 +90,29 @@ class WebSocketService {
     }
   }
 
+  notifyBountyPosted(bounty, postedBy) {
+    this.send({
+      type: 'bounty_posted',
+      bounty: bounty,
+      postedBy: postedBy
+    });
+  }
 
+  notifySubmissionCreated(submission, submittedBy) {
+    this.send({
+      type: 'submission_created',
+      submission: submission,
+      submittedBy: submittedBy
+    });
+  }
+
+  sendChatMessage(message, user) {
+    this.send({
+      type: 'chat_message',
+      message: message,
+      user: user
+    });
+  }
 
   attemptReconnect(userId) {
     if (this.reconnectAttempts < this.maxReconnectAttempts) {

@@ -812,3 +812,123 @@ This study guide covers the major topics in CS260:
 2. User posts bounty → stored in `bounties` collection
 3. User submits → stored in `submissions` collection
 4. All data persists even after server restart
+
+CS260 Final Exam Study Guide
+Network Protocols & Ports
+Default Ports:
+
+HTTP: 80
+
+HTTPS: 443
+
+SSH: 22
+
+Ports are like apartment numbers for services
+
+HTTP Status Codes
+Range	Meaning	Examples
+2xx	Success	200 OK, 201 Created
+3xx	Redirection	301 Permanent, 302 Found
+4xx	Client Error	400 Bad Request, 401 Unauthorized, 404 Not Found
+5xx	Server Error	500 Internal, 503 Unavailable
+Key: 300/400/500 = PROBLEMS
+
+HTTP Headers
+Content-Type
+text
+Content-Type: application/json
+Content-Type: text/html
+Content-Type: image/png
+Purpose: Tells receiver how to parse the body data.
+
+Example:
+
+js
+fetch('/api/users', {
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify(user)
+});
+Cookie Security Flags
+Flag	Purpose	Effect
+Secure	HTTPS only	❌ HTTP, ✅ HTTPS
+HttpOnly	Block JS access	document.cookie can't read
+SameSite	CSRF protection	Strict = same site only
+Your Bounty Hunter backend:
+
+js
+res.cookie('token', token, {
+  secure: true,
+  httpOnly: true,
+  sameSite: 'strict'
+});
+Express Middleware Flow
+GET /api/document with:
+
+js
+app.use(express.json());
+app.use('/api', apiRouter);
+apiRouter.get('/document', (req, res) => console.log('handler'));
+Order: json() → /api match → document handler
+Output: handler
+
+Fetch Response Pattern
+Backend:
+
+js
+app.post('/api/users', (req, res) => res.json({id: 1, name: 'Mark'}));
+Frontend:
+
+js
+const res = await fetch('/api/users');
+const data = await res.json(); // {id: 1, name: 'Mark'}
+MongoDB Queries
+Exact match:
+
+js
+db.users.find({ name: "Mark" })
+Matches:
+
+js
+{ name: "Mark", age: 25 }     ✅
+{ name: "mark", age: 30 }     ❌ (case-sensitive)
+Fuzzy:
+
+js
+db.users.find({ name: { $regex: /Mark/i } })
+Password Storage
+✅ Correct:
+
+js
+const hash = await bcrypt.hash(password, 10);
+db.users.insertOne({ email, password: hash });
+❌ Never: Plain text passwords
+
+WebSocket Flow
+Backend:
+
+js
+wss.on('connection', ws => ws.send('Welcome!'));
+Frontend:
+
+js
+ws.onmessage = e => console.log(e.data); // "Welcome!"
+WebSocket Purpose
+HTTP: Request → Response → Disconnect
+WebSocket: Persistent bidirectional connection
+
+Use cases: Chat, live notifications, gaming
+
+Acronyms
+Acronym	Full Form
+JSX	JavaScript XML
+JS	JavaScript
+AWS	Amazon Web Services
+NPM	Node Package Manager
+NVM	Node Version Manager
+React useState Hook
+Before:
+
+jsx
+class Counter extends React.Component {
+  state = { count: 0 };
+  render() { return <div>{this.state.count}</div>; }
